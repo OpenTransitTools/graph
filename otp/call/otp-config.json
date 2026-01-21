@@ -1,0 +1,18 @@
+{
+  "otpFeatures" : {
+    "LegacyRestApi": true,
+    "SandboxAPIMapboxVectorTilesApi": true,
+    "SandboxAPIParkAndRideApi": true,
+    "Co2Emissions": false,
+    "FloatingBike": true,
+    "FaresV2" : false,
+    "FlexRouting": false,
+    "GtfsGraphQlApi": true,
+    "TransferConstraints": true,
+    "TransferAnalyzer": false,
+    "OptimizeTransfers": true,
+    "ParallelRouting":true,
+    "RealtimeResolver": true,
+    "ReportApi": true
+  }
+}

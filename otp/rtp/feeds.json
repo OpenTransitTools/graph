@@ -1,0 +1,50 @@
+    {
+      "type": "gtfs",
+      "feedId": "CLACKAMAS",
+      "source": "CLACKAMAS.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "CTRAN",
+      "source": "CTRAN.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "CTRAN_FLEX",
+      "source": "CTRAN_FLEX.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "MULT",
+      "source": "MULT.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "RIDECONNECTION",
+      "source": "RIDECONNECTION.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "WASH_FLEX",
+      "source": "WASH_FLEX.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "SAM",
+      "source": "SAM.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "SMART",
+      "source": "SMART.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "TRIMET",
+      "source": "TRIMET.gtfs.zip"
+    },
+    {
+      "type": "gtfs",
+      "feedId": "WAPARK",
+      "source": "WAPARK.gtfs.zip"
+    }

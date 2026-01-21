@@ -1,0 +1,25 @@
+virtualenvs.create = true
+virtualenvs.options.system-site-packages = true
+
+[tool.poetry]
+name = "graph"
+version = "0.0.1"
+description = "OTP graph build & deploy tools"
+authors = ["Frank Purcell <fxpurcell@gmail.com>"]
+license = "Mozella 2.x"
+readme = "README.md"
+packages = [{include = "ott/graph"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+"ott.utils" = {git = "https://github.com/OpenTransitTools/utils.git", branch = "rtp"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+system-site-packages = true
+
+[tool.poetry.scripts]
+build-rtp = "ott.graph.rtp:main"
+build-old-call = "ott.graph.old_call:main"
+

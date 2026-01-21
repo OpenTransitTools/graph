@@ -1,0 +1,130 @@
+{
+  // JAN 2025: changes to itin filters search window
+  // MAR 2025: car reluctance + timeout
+  "routingDefaults": {
+    "maxJourneyDuration": "6h",
+    "boardSlack": "0M",
+    "alightSlack": "0M",
+    "transferSlack": 180,
+    "waitReluctance": 0.9,
+    "numItineraries": 3,
+    "itineraryFilters": {
+      "parkAndRideDurationRatio": 0.15,
+      "bikeRentalDistanceRatio": 0.15,
+
+      // only show non-transit (ie. walking) when it's at least as good as the transit option
+      "nonTransitGeneralizedCostLimit": "0 + 1.5 x"
+    },
+    "car" : {
+      "reluctance" : 20.0
+    },
+    "streetRoutingTimeout" : "7s"
+  },
+  "transit": {
+    "maxNumberOfTransfers": 4,
+    "dynamicSearchWindow": {
+      "minTransitTimeCoefficient": 0.5,
+      "minWaitTimeCoefficient": 0.5,
+      "minWindow": "1h",
+      "maxWindow": "8h"
+    }
+  },
+  "updaters": [
+    {
+      "type": "real-time-alerts",
+      "frequency": "20s",
+      "url": "http://trimet.org/transweb/ws/V1/FeedSpecAlerts/includeFuture/true/suppressSystemWideAlerts/true/",
+      "feedId": "TRIMET"
+    },
+    {
+      "type": "stop-time-updater",
+      "frequency": "31s",
+      "url": "http://trimet.org/transweb/ws/V1/TripUpdate",
+      "feedId": "TRIMET"
+    },
+    {
+      "type": "vehicle-positions",
+      "frequency": "37s",
+      "url": "http://trimet.org/transweb/ws/V1/VehiclePositions",
+      "feedId": "TRIMET"
+    },
+    {
+      "type": "vehicle-rental",
+      "frequency": "40s",
+      "sourceType": "gbfs",
+      "url": "https://gbfs.biketownpdx.com/gbfs/2.3/gbfs.json"
+    },
+    {
+      "type": "vehicle-rental",
+      "frequency": "43s",
+      "network": "LIME",
+      "sourceType": "gbfs",
+      "url": "https://data.lime.bike/api/partners/v2/gbfs/portland/gbfs.json"
+    }
+  ],
+  "vectorTiles": {
+    "basePath": "/rtp/routers/default/vectorTiles",
+    "layers": [
+      {
+        "name": "stops",
+        "type": "Stop",
+        "mapper": "Digitransit",
+        "maxZoom": 30,
+        "minZoom": 1,
+        "filter": "sunday-to-sunday-service-week",
+        "cacheMaxSeconds": 600
+      },
+      {
+        "name": "areaStops",
+        "type": "AreaStop",
+        "mapper": "OTPRR",
+        "maxZoom": 30,
+        "minZoom": 1,
+        "filter": "sunday-to-sunday-service-week",
+        "cacheMaxSeconds": 600
+      },
+      {
+        "name": "stations",
+        "type": "Station",
+        "mapper": "Digitransit",
+        "maxZoom": 30,
+        "minZoom": 1,
+        "filter": "sunday-to-sunday-service-week",
+        "cacheMaxSeconds": 600
+      },
+      {
+        "name": "rentalVehicles",
+        "type": "VehicleRentalVehicle",
+        "mapper": "Digitransit",
+        "maxZoom": 30,
+        "minZoom": 1,
+        "cacheMaxSeconds": 60
+      },
+      {
+        "name": "realtimeRentalStations",
+        "type": "VehicleRentalStation",
+        "mapper": "DigitransitRealtime",
+        "maxZoom": 30,
+        "minZoom": 1,
+        "cacheMaxSeconds": 90
+      },
+      {
+        "name": "rentalStations",
+        "type": "VehicleRentalStation",
+        "mapper": "Digitransit",
+        "maxZoom": 30,
+        "minZoom": 1,
+        "cacheMaxSeconds": 600
+      },
+      {
+        "name": "vehicleParking",
+        "type": "VehicleParking",
+        "mapper": "Digitransit",
+        "maxZoom": 30,
+        "minZoom": 1,
+        "cacheMaxSeconds": 600,
+        "expansionFactor": 0.25
+      }
+    ]
+  }
+}

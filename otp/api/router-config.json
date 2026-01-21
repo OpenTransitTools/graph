@@ -1,0 +1,52 @@
+{
+    timeouts: [7, 3, 2],
+    includeOsmTags: true,
+
+    routingDefaults: {
+        maxHours: 6,
+        useRequestedDateTimeInMaxHours: true,
+        boardSlack: 0,
+        alightSlack: 0,
+        transferSlack: 180,
+        maxTransfers: 4,
+        waitReluctance: 0.9,
+        walkReluctance: 1.75,
+        stairsReluctance: 1.65,
+        numItineraries: 3,
+        disableAlertFiltering: true,
+        geoidElevation : true,
+        maxPreTransitTime : 600,
+        invalidDateStrategy: "USE_CURRENT"
+    },
+
+    updaters: [
+        {
+          type: "real-time-alerts",
+          frequencySec: 60,
+          earlyStart: 864000,
+          url: "http://trimet.org/transweb/ws/V1/FeedSpecAlerts/includeFuture/true/suppressSystemWideAlerts/true/",
+          feedId: "1"
+        },
+        {
+          type: "stop-time-updater",
+          frequencySec: 30,
+          sourceType: "gtfs-http",
+          url: "https://trimet.org/transweb/ws/V1/TripUpdate",
+          feedId: "1"
+        },
+        {
+          type: "bike-rental",
+          frequencySec: 92,
+          sourceType: "gbfs",
+          url: "https://gbfs.biketownpdx.com/gbfs"
+        },
+        {
+          type: "vehicle-rental-updater",
+          frequencySec: 91,
+          network: "LIME",
+          sourceType: "gbfs",
+          url: "https://data.lime.bike/api/partners/v2/gbfs/portland",
+          regionsUrl: "file:/home/otp/loader/ott/loader/otp/graph/config/regions/portland_OR/portland-boundary.geojson"
+        }
+    ]
+}
