@@ -12,7 +12,8 @@ packages = [{include = "ott/graph"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-"ott.utils" = {git = "https://github.com/OpenTransitTools/utils.git", branch = "rtp"}
+"ott.utils" = { path = "../utils/", develop = true }
+#"ott.utils" = {git = "https://github.com/OpenTransitTools/utils.git", branch = "rtp"}
 
 [build-system]
 requires = ["poetry-core"]
@@ -21,8 +22,5 @@ system-site-packages = true
 
 [tool.poetry.scripts]
 rtp = "ott.graph.rtp:main"
-rtp-build = "ott.graph.rtp:build"
-
-
-build-old-call = "ott.graph.old_call:main"
-
+rtp-build = "ott.graph.rtp:rtp_build"
+old-call-build = "ott.graph.old_call:main"

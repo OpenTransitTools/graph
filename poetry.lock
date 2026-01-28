@@ -170,7 +170,7 @@ optional = false
 python-versions = "*"
 groups = ["main"]
 files = []
-develop = false
+develop = true
 
 [package.dependencies]
 future = "*"
@@ -179,10 +179,8 @@ simplejson = "*"
 validators = "*"
 
 [package.source]
-type = "git"
-url = "https://github.com/OpenTransitTools/utils.git"
-reference = "rtp"
-resolved_reference = "675b311e1ea8fbb1862b084697929c8a4ed2d2ca"
+type = "directory"
+url = "../utils"
 
 [[package]]
 name = "requests"
@@ -362,4 +360,4 @@ crypto-eth-addresses = ["eth-hash[pycryptodome] (>=0.7.0)"]
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.9"
-content-hash = "7f3619df2f055247c97283aa02ad244eafd60ecba263a412425ed54482b4972d"
+content-hash = "2f8c73aeff5f3b126b8bda64bd4c7c69b9ac775a531517db1f375cf84827a087"
