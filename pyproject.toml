@@ -21,6 +21,7 @@ build-backend = "poetry.core.masonry.api"
 system-site-packages = true
 
 [tool.poetry.scripts]
-rtp = "ott.graph.rtp:main"
-rtp-build = "ott.graph.rtp:rtp_build"
-old-call-build = "ott.graph.old_call:main"
+loader = "ott.graph.loader:main"
+rtp-loader = "ott.graph.loader:rtp"
+call-loader = "ott.graph.loader:call"
+old-call-loader = "ott.graph.loader:old_call"
