@@ -22,20 +22,20 @@ osm_path = os.path.join(cwd, "..", "osm")
 ned_path = os.path.join(cwd, "..", "ned")
 
 
-def builder(path, version):
-    clean(path)
-    copy(path, gtfs_path, osm_path, ned_path)
-    build(path, version)
-    ret_val = file_utils.exists(path, "graph.obj" if otp_utils.OTP_2 else "Graph.obj")
+def builder(graph_dir, version):
+    clean(graph_dir)
+    copy(graph_dir, gtfs_path, osm_path, ned_path)
+    build(graph_dir, version)
+    ret_val = file_utils.exists(graph_dir, "graph.obj" if otp_utils.OTP_2 else "Graph.obj")
     return ret_val
 
 
-def runner(path, version, port, sec_port=None, skip_tests=False):
+def runner(graph_dir, version, port, sec_port=None, skip_tests=False):
     if sec_port is None:
         sec_port = int(port) + 1
 
-    ret_val = start_api(path, version, port, sec_port)
-    if not skip_tests and is_otp_up(port):
+    ret_val = otp_utils.run_otp_server(graph_dir, otp_version=version, port=port, ssl=sec_port)
+    if not skip_tests and otp_utils.wait_for_otp(f"http://localhost:{port}/otp", otp_version=version):
         ret_val = test(port)
 
     return ret_val
@@ -43,7 +43,7 @@ def runner(path, version, port, sec_port=None, skip_tests=False):
 
 def loader(cl):
     #import pdb; pdb.set_trace()
-    #b = builder(cl.otp_path)
+    #b = builder(cl.otp_graph_dir)
     b = True
     if b:
         r = runner(cl.otp_path, cl.version, cl.port, cl.sec_port, skip_tests=cl.no_tests)

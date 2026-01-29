@@ -7,16 +7,8 @@ logging.basicConfig()
 log = logging.getLogger(__file__)
 
 
-def start_api(path, version, port, sec_port):
-
-    return True
-
-
-def is_otp_up(port):
-    return True
-
-
 def test(path):
+    print(f"TESTING {path}")
     return True
 
 
