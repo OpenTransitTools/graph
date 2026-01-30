@@ -3,6 +3,9 @@ ott.openlayers.*
 otp_report.html
 build-config.json
 router-config.json
+tests
+utils
+report.html
 gtfs/
 lucene
 bkup

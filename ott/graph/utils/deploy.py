@@ -7,15 +7,6 @@ logging.basicConfig()
 log = logging.getLogger(__file__)
 
 
-def test(path):
-    print(f"TESTING {path}")
-    return True
-
-
-def deploy(path):
-    return True
-
-
 def pack_assets(path, version, otp_v="", gtfs_v=""):
     """
     convenience routine will take g/Graph.obj and simply copy it to g/Graph.obj-new
@@ -43,6 +34,10 @@ def pack_assets(path, version, otp_v="", gtfs_v=""):
 
 
 def scp(path, assets, server):
-    log.info(f"scp {path}/{assets} (-new suffix) to {server}")    
+    msg = f"scp {path}/{assets} (-new suffix) to {server}"
+    log.info(msg)
+    print(server)
+    for a in assets:
+        print(f"{a} -> {path}")
     #file_utils.scp()
 

@@ -13,6 +13,7 @@ packages = [{include = "ott/graph"}]
 [tool.poetry.dependencies]
 python = "^3.9"
 "ott.utils" = { path = "../utils/", develop = true }
+"tests" = { path = "../tests/", develop = true }
 #"ott.utils" = {git = "https://github.com/OpenTransitTools/utils.git", branch = "rtp"}
 
 [build-system]
