@@ -48,25 +48,35 @@ def runner(graph_dir, version, port, sec_port=None, skip_tests=False):
     return ret_val
 
 
+def tester(cl):
+    test_success = runner(cl.graph_dir, cl.version, cl.port, cl.sec_port, skip_tests=cl.no_tests)
+    if test_success:
+        gtfs_v = os.path.join(gtfs_path, "gtfs.v")
+        osm_v = os.path.join(osm_path, "osm.v")
+        ass = pack_assets(cl.graph_dir, cl.version, gtfs_v, osm_v)
+        for s in cl.servers:
+            scp(cl.graph_dir, ass, s)
+    return test_success
+
+
 def loader(cl):
     build_success = builder(cl.graph_dir, cl.version)
     if build_success:
-        test_success = runner(cl.graph_dir, cl.version, cl.port, cl.sec_port, skip_tests=cl.no_tests)
-        if test_success:
-            gtfs_v = os.path.join(gtfs_path, "gtfs.v")
-            osm_v = os.path.join(osm_path, "osm.v")
-            ass = pack_assets(cl.graph_dir, cl.version, gtfs_v, osm_v)
-            for s in cl.servers:
-                scp(cl.graph_dir, ass, s)
+        test_success = tester(cl)
+    return test_success
 
 
 def rtp():
     cl = cmd_line('rtp', port=52425)
     loader(cl)
 
+def rtp_tester():
+    cl = cmd_line('rtp', port=52425)
+    tester(cl)
+
 
 def call():
-    cl = cmd_line('rtp', port=52425, v=otp_utils.OTP_1)
+    cl = cmd_line('call', port=52225, v=otp_utils.OTP_1)
     loader(cl)
 
 
