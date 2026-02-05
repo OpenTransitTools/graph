@@ -64,23 +64,30 @@ class base():
         return runner.start_new_otp(cls.cl)
 
     @classmethod
+    def make_new_files(cls):
+        deployer.make_new_files(cls.cl)
+
+    @classmethod
     def update_otp_v(cls):
-        deployer.update_otp_v(cls.cl.graph_dir, cls.cl.version)
+        deployer.update_otp_v(cls.cl)
 
     @classmethod
     def package(cls):
         ret_val = False
+        runner.kill_otp_server(cls.cl)
         if cls.build():
             if cls.start():
                 if cls.test():
                     ret_val = True
                     cls.update_otp_v()
+                    cls.make_new_files()
+                    
         return ret_val
 
     @classmethod
     def scp(cls):
         for s in cls.cl.servers:
-            deployer.scp(s, cls.cl.graph_dir, cls.cl.version)
+            deployer.scp(s, cls.cl)
 
 
 class rtp(base):

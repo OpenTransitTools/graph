@@ -6,17 +6,24 @@ import os
 from ott.utils import otp_utils
 
 
-def start_server(graph_dir, version, port, sec_port=None):
-    """ starts the OTP server """
-    if sec_port is None:
-        sec_port = int(port) + 1
+def kill_otp_server(cl):
+    otp_utils.kill_otp_server(cl.graph_dir)
 
-    ret_val = otp_utils.run_otp_server(graph_dir, otp_version=version, port=port, ssl=sec_port)
+
+def start_otp_server(cl):
+    """ starts the OTP server """
+    if cl.sec_port is None:
+        sec_port = int(cl.port) + 1
+
+    ret_val = otp_utils.run_otp_server(cl.graph_dir, otp_version=cl.version, port=cl.port, ssl=sec_port)
     if ret_val:
-        ret_val = otp_utils.wait_for_otp(f"http://localhost:{port}/otp", otp_version=version)
+        ret_val = otp_utils.wait_for_otp(f"http://localhost:{cl.port}/otp", otp_version=cl.version)
 
     return ret_val
 
 
-def start_otp_server(cl):
-    start_server(cl.x)
+def start_new_otp(cl):
+    kill_otp_server(cl)
+    otp_utils.mv_new_files_into_place(cl.graph_dir, "OLD")
+    otp_utils.rm_new(cl.graph_dir)
+    start_otp_server(cl)

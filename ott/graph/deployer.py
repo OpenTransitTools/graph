@@ -28,19 +28,21 @@ def get_assets(path, version):
     return [log_v_new, graph_new, jar_new] + config_paths
 
 
-def scp(server, path, version):
-    assets = get_assets(path, version)
-    msg = f"scp {path}/{assets} (-new suffix) to {server}"
+def scp(server, cl):
+    assets = get_assets(cl.graph_dir, cl.version)
+    msg = f"scp {cl.graph_dir}/{assets} (-new suffix) to {server}"
     log.info(msg)
     print(server)
     for a in assets:
-        print(f"{a} -> {path}")
+        print(f"{a} -> {cl.graph_dir}")
         #file_utils.scp(server, a)
 
 
-def update_otp_v(dir, version):
+def update_otp_v(cl):
     gtfs_v = os.path.join(gtfs_path, "gtfs.v")
     osm_v = os.path.join(osm_path, "osm.v")
-    
-    otp_utils.append_vlog_new(dir, osm_v, gtfs_v)
-    otp_utils.package_new(graph_dir=dir, otp_version=version)
+    otp_utils.append_vlog_new(cl.graph_dir, osm_v, gtfs_v)
+
+
+def make_new_files(cl):
+    otp_utils.package_new(graph_dir=cl.graph_dir, otp_version=cl.version)

@@ -42,6 +42,7 @@ def build(graph_dir, version, gtfs_ext=".gtfs.zip", osm_ext=".osm.pbf"):
     build the graph
     """
     # step 1: remove the graph .obj file(s)
+    otp_utils.rm_new(graph_dir)
     file_utils.rm_files(graph_dir, ext=".obj")
     o = file_utils.find_files_in_subdirs(graph_dir, ext=".obj")
     if len(o) > 0:

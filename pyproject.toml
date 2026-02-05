@@ -17,7 +17,6 @@ tests = {git = "https://github.com/OpenTransitTools/tests.git"}
 #"ott.utils" = { path = "../utils/", develop = true}
 #tests = { path = "../tests/", develop = true}
 
-
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -31,6 +30,7 @@ rtp-start-new = "ott.graph.main:rtp.start_new"
 rtp-package = "ott.graph.main:rtp.package"
 rtp-scp = "ott.graph.main:rtp.scp"
 rtp-update-v = "ott.graph.main:rtp.update_otp_v"
+rtp-make-new-files = "ott.graph.main:rtp.make_new_files"
 
 oldcall-tester = "ott.graph.main:old_call.test"
 oldcall-scp = "ott.graph.main:old_call.scp"
