@@ -51,7 +51,7 @@ class base():
     @classmethod
     def test(cls):
         url = otp_utils.get_api_url(cls.cl.version, cls.cl.port)
-        test_success = test.all(url)
+        test_success = test.all(url, cls.cl.graph_dir)
         log.info(f"testing graph {cls.cl.instance} ({url}): success == {test_success}")
         return test_success
 
