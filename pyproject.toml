@@ -33,4 +33,7 @@ rtp-scp = "ott.graph.main:rtp.scp"
 rtp-update-v = "ott.graph.main:rtp.update_otp_v"
 
 oldcall-tester = "ott.graph.main:old_call.test"
+oldcall-scp = "ott.graph.main:old_call.scp"
+oldcall-update-v = "ott.graph.main:old_call.update_otp_v"
+
 #rtp- = "ott.graph.main:rtp.test"

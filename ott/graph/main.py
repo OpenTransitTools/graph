@@ -80,7 +80,7 @@ class base():
     @classmethod
     def scp(cls):
         for s in cls.cl.servers:
-            deployer.scp(s, cls.cl)
+            deployer.scp(s, cls.cl.graph_dir, cls.cl.version)
 
 
 class rtp(base):
