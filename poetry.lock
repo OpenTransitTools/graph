@@ -325,7 +325,7 @@ validators = "*"
 type = "git"
 url = "https://github.com/OpenTransitTools/utils.git"
 reference = "rtp"
-resolved_reference = "1716bd2e161d1ca573f3402a1adaeb1c658b65c5"
+resolved_reference = "4ab3b80635e30fd04a698f4918b9abb2ef3de097"
 
 [[package]]
 name = "pyyaml"
@@ -574,7 +574,7 @@ requests = "^2.32.0"
 type = "git"
 url = "https://github.com/OpenTransitTools/tests.git"
 reference = "HEAD"
-resolved_reference = "145a719b0532025211021cdfa66baae85c99a307"
+resolved_reference = "39d599ba0d9071203aef0ad8a54affbe651b5e82"
 
 [[package]]
 name = "urllib3"
