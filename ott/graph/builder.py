@@ -61,10 +61,32 @@ def build(graph_dir, version, gtfs_ext=".gtfs.zip", osm_ext=".osm.pbf"):
     return ret_val
 
 
+def check_feeds(graph_dir):
+    """
+    check all the GTFS feeds to see if they look like GTFS data
+    so, DON'T BUILD a graph if any feed:
+     1) is not a zip file
+     2) doesn't have a valid trips.txt file
+
+     TODO fix gtfs_etl to also test feeds, and stop the deployment of data if feed looks bogus
+     """
+    ret_val = True
+    feeds = file_utils.find_files_in_subdirs(graph_dir, ext=".gtfs.zip")
+    for f in feeds:
+        # TODO: assert that the feed looks valid
+        if f:
+            #ret_val = False
+            log.error("Feed {f} is broken...") #todo format flag
+            break
+    return ret_val
+
+
 def build_new_graph(cl):
     # import pdb; pdb.set_trace()
+    ret_val = False
     clean(cl.graph_dir)
     copy(cl.graph_dir, gtfs_path, osm_path, ned_path)
-    build(cl.graph_dir, cl.version)
-    ret_val = file_utils.exists(cl.graph_dir, "graph.obj" if cl.version == otp_utils.OTP_2 else "Graph.obj")
+    if check_feeds(cl.graph_dir):
+        build(cl.graph_dir, cl.version)
+        ret_val = file_utils.exists(cl.graph_dir, "graph.obj" if cl.version == otp_utils.OTP_2 else "Graph.obj")
     return ret_val

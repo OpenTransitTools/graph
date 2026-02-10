@@ -23,17 +23,11 @@ build-backend = "poetry.core.masonry.api"
 system-site-packages = true
 
 [tool.poetry.scripts]
-rtp-build = "ott.graph.main:rtp.build"
-rtp-test = "ott.graph.main:rtp.test"
-rtp-start = "ott.graph.main:rtp.start"
-rtp-start-new = "ott.graph.main:rtp.start_new"
-rtp-package = "ott.graph.main:rtp.package"
-rtp-scp = "ott.graph.main:rtp.scp"
-rtp-update-v = "ott.graph.main:rtp.update_otp_v"
-rtp-make-new-files = "ott.graph.main:rtp.make_new_files"
-
-oldcall-tester = "ott.graph.main:old_call.test"
-oldcall-scp = "ott.graph.main:old_call.scp"
-oldcall-update-v = "ott.graph.main:old_call.update_otp_v"
-
-#rtp- = "ott.graph.main:rtp.test"
+build = "ott.graph.main:otp.build"
+package = "ott.graph.main:otp.package"
+test = "ott.graph.main:otp.test"
+start = "ott.graph.main:otp.start"
+start-new = "ott.graph.main:otp.start_new"
+scp = "ott.graph.main:otp.scp"
+update-v = "ott.graph.main:otp.update_otp_v"
+make-new-files = "ott.graph.main:otp.make_new_files"

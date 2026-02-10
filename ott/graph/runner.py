@@ -12,9 +12,7 @@ def kill_otp_server(cl):
 
 def start_otp_server(cl):
     """ starts the OTP server """
-    if cl.sec_port is None:
-        sec_port = int(cl.port) + 1
-
+    sec_port = cl.sec_port if cl.sec_port else int(cl.port) + 1
     ret_val = otp_utils.run_otp_server(cl.graph_dir, otp_version=cl.version, port=cl.port, ssl=sec_port)
     if ret_val:
         ret_val = otp_utils.wait_for_otp(f"http://localhost:{cl.port}/otp", otp_version=cl.version)
