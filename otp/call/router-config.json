@@ -1,6 +1,4 @@
 {
-  // JAN 2025: changes to itin filters search window
-  // MAR 2025: car reluctance + timeout
   "routingDefaults": {
     "maxJourneyDuration": "6h",
     "boardSlack": "0M",
@@ -18,7 +16,23 @@
     "car" : {
       "reluctance" : 20.0
     },
-    "streetRoutingTimeout" : "7s"
+    "streetRoutingTimeout" : "7s",
+    "accessEgress" : {
+      "penalty" : {
+        "SCOOTER_RENTAL" : {
+          "timePenalty" : "0m + 0.8t",
+          "costFactor" : 1.0
+        },
+        "BIKE_RENTAL" : {
+          "timePenalty" : "0m + 0.8t",
+          "costFactor" : 1.0
+        }
+      }
+    }
+  },
+  "flex": {
+    "maxAccessWalkDuration": "10m",
+    "maxEgressWalkDuration": "10m"
   },
   "transit": {
     "maxNumberOfTransfers": 4,
@@ -32,20 +46,20 @@
   "updaters": [
     {
       "type": "real-time-alerts",
-      "frequency": "20s",
-      "url": "http://trimet.org/transweb/ws/V1/FeedSpecAlerts/includeFuture/true/suppressSystemWideAlerts/true/",
+      "frequency": "45s",
+      "url": "http://trimet.org/transweb/ws/V1/FeedSpecAlerts?includeFuture=true&suppressSystemWideAlerts=true",
       "feedId": "TRIMET"
     },
     {
       "type": "stop-time-updater",
-      "frequency": "31s",
-      "url": "http://trimet.org/transweb/ws/V1/TripUpdate",
+      "frequency": "11s",
+      "url": "http://trimet.org/transweb/ws/V1/TripUpdate?n",
       "feedId": "TRIMET"
     },
     {
       "type": "vehicle-positions",
-      "frequency": "37s",
-      "url": "http://trimet.org/transweb/ws/V1/VehiclePositions",
+      "frequency": "13s",
+      "url": "http://trimet.org/transweb/ws/V1/VehiclePositions?n",
       "feedId": "TRIMET"
     },
     {
@@ -63,7 +77,8 @@
     }
   ],
   "vectorTiles": {
-    "basePath": "/rtp/routers/default/vectorTiles",
+    "basePath": "/otp/routers/default/vectorTiles",
+    "attribution": "<a href='https://call.trimet.org'>Calltaker</a>",
     "layers": [
       {
         "name": "stops",

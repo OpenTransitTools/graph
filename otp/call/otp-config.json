@@ -1,18 +1,20 @@
 {
   "otpFeatures" : {
+    "ActuatorAPI": true,
+    "ExtraTransferLegOnSameStop": true,
+    "Co2Emissions": true,
+    "FaresV2" : true,
+    "FlexRouting": true,
+    "FloatingBike": true,
+    "GtfsGraphQlApi": true,
+    "OptimizeTransfers": true,
+    "ParallelRouting": true,
     "LegacyRestApi": true,
     "SandboxAPIMapboxVectorTilesApi": true,
     "SandboxAPIParkAndRideApi": true,
-    "Co2Emissions": false,
-    "FloatingBike": true,
-    "FaresV2" : false,
-    "FlexRouting": false,
-    "GtfsGraphQlApi": true,
-    "TransferConstraints": true,
-    "TransferAnalyzer": false,
-    "OptimizeTransfers": true,
-    "ParallelRouting":true,
     "RealtimeResolver": true,
-    "ReportApi": true
+    "ReportApi": true,
+    "TransferConstraints": true,
+    "TransferAnalyzer": false
   }
 }

@@ -16,7 +16,18 @@
   "osmDefaults": {
     "osmTagMapping": "portland"
   },
+  "fares": {
+    "type": "hop"
+  },
 
+  "transferRequests": [
+    {
+      "modes": "WALK"
+    },
+    {
+      "modes": "BICYCLE"
+    }
+  ],
   "transitFeeds": [
     {
       "type": "gtfs",
