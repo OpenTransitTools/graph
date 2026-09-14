@@ -2,9 +2,9 @@
   "otpFeatures" : {
     "ActuatorAPI": true,
     "ExtraTransferLegOnSameStop": true,
-    "Co2Emissions": true,
+    "Co2Emissions": false,
     "FaresV2" : true,
-    "FlexRouting": true,
+    "FlexRouting": false,
     "FloatingBike": true,
     "GtfsGraphQlApi": true,
     "OptimizeTransfers": true,
