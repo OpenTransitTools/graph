@@ -5,6 +5,9 @@ This code does the following:
   3. build the graph
 """
 import os
+import re
+from pathlib import Path
+
 from ott.utils import file_utils
 from ott.utils import otp_utils
 
@@ -28,13 +31,45 @@ def clean(graph_dir, gtfs_ext=".gtfs.zip", osm_ext=".osm.pdb"):
         log.warning(f"Seeing either OSM {o} and/or GTFS {g} files, when I wanted them all gone.")
 
 
+def get_feeds(graph_dir, feed_files=["build-config.json", "feeds.json"]):
+    ret_val = []
+
+    for f in feed_files:
+        config_file = os.path.join(graph_dir, f)
+        if Path(config_file).is_file():
+            # matches all "source": " directives, striping out the '.gtfs.zip' names
+            pattern = r'"source":\s*"([^"]+\.gtfs\.zip)"'
+
+            # re.findall returns a list of strings matching the text inside the ([...]) group
+            with open(config_file, 'r', encoding='utf-8') as file:
+                content = file.read()
+                file_names = re.findall(pattern, content)
+                if file_names:
+                    ret_val = ret_val + file_names
+
+    return ret_val
+
+
 def copy(graph_dir, gtfs_path="gtfs", osm_path="osm", ned_path="ned", gtfs_ext=".gtfs.zip", osm_ext=".osm.pbf"):
     """
     copy GTFS and OSM data
     """
-    file_utils.cp_files(gtfs_path, graph_dir, ext=gtfs_ext)
+    # step 1: OSM
     file_utils.cp_files(osm_path, graph_dir, ext=osm_ext)
-    file_utils.cp_files(ned_path, os.path.join(graph_dir, "ned"), ext="*.*")
+
+    # step 2: GTFS files (based on OTP build .json)
+    files = get_feeds(graph_dir)
+    if files and len(files) > 0:
+        for f in files:
+            file_utils.cp_files(gtfs_path, graph_dir, ext=f)
+    else:
+       file_utils.cp_files(gtfs_path, graph_dir, ext=gtfs_ext)
+
+    # step 3: NED elevation files
+    ned_dir=os.path.join(graph_dir, "ned")
+    file_utils.mkdir(ned_dir)
+    file_utils.cp_files(ned_path, ned_dir, ext=".tiff")
+    file_utils.cp_files(ned_path, ned_dir, ext=".gtx")
 
 
 def build(graph_dir, version, gtfs_ext=".gtfs.zip", osm_ext=".osm.pbf"):
@@ -68,8 +103,8 @@ def check_feeds(graph_dir):
      1) is not a zip file
      2) doesn't have a valid trips.txt file
 
-     TODO fix gtfs_etl to also test feeds, and stop the deployment of data if feed looks bogus
-     """
+    TODO fix gtfs_etl to also test feeds, and stop the deployment of data if feed looks bogus
+    """
     ret_val = True
     feeds = file_utils.find_files_in_subdirs(graph_dir, ext=".gtfs.zip")
     for f in feeds:
