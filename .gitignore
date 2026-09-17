@@ -6,6 +6,7 @@ router-config.json
 tests
 utils
 report.html
+GeoTools
 gtfs/
 lucene
 bkup

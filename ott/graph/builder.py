@@ -6,8 +6,6 @@ This code does the following:
 """
 import os
 import re
-from pathlib import Path
-
 from ott.utils import file_utils
 from ott.utils import otp_utils
 
@@ -36,7 +34,7 @@ def get_feeds(graph_dir, feed_files=["build-config.json", "feeds.json"]):
 
     for f in feed_files:
         config_file = os.path.join(graph_dir, f)
-        if Path(config_file).is_file():
+        if os.path.isfile(config_file):
             # matches all "source": " directives, striping out the '.gtfs.zip' names
             pattern = r'"source":\s*"([^"]+\.gtfs\.zip)"'
 
@@ -63,7 +61,7 @@ def copy(graph_dir, gtfs_path="gtfs", osm_path="osm", ned_path="ned", gtfs_ext="
         for f in files:
             file_utils.cp_files(gtfs_path, graph_dir, ext=f)
     else:
-       file_utils.cp_files(gtfs_path, graph_dir, ext=gtfs_ext)
+        file_utils.cp_files(gtfs_path, graph_dir, ext=gtfs_ext)
 
     # step 3: NED elevation files
     ned_dir=os.path.join(graph_dir, "ned")
@@ -89,9 +87,8 @@ def build(graph_dir, version, gtfs_ext=".gtfs.zip", osm_ext=".osm.pbf"):
     if len(g) < 1 or len(o) < 1:
         log.warning(f"Not seeing either OSM {o} and/or GTFS {g} files")
 
-    # step 3: build
-    otp_utils.run_graph_builder(graph_dir, version)
-
+    # step 3: build graph
+    otp_utils.run_graph_builder(graph_dir, version, tmp_dir=".")
     ret_val = otp_utils.check_graph_size(graph_dir, version)
     return ret_val
 
@@ -110,8 +107,9 @@ def check_feeds(graph_dir):
     for f in feeds:
         # TODO: assert that the feed looks valid
         if f:
+            print("TODO: check feed")
             #ret_val = False
-            log.error("Feed {f} is broken...") #todo format flag
+            #log.error("Feed {f} is broken...") #todo format flag
             break
     return ret_val
 
