@@ -5,6 +5,7 @@ build-config.json
 router-config.json
 tests
 *-new
+Geotools
 utils
 report.html
 GeoTools
