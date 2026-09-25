@@ -721,7 +721,7 @@ requests = "^2.32.0"
 type = "git"
 url = "https://github.com/OpenTransitTools/tests.git"
 reference = "HEAD"
-resolved_reference = "c53bb1900a87e33a286b32ec2d8c3c95d7920738"
+resolved_reference = "37efd6b65842fd0deea9ec1ddfa33cf92eec32b6"
 
 [[package]]
 name = "typing-extensions"
